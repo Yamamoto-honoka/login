@@ -13,24 +13,28 @@ public class LoginDAO {
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
 		
-		String sql = "select * from user where user_name=? and password=?";
+		 String sql="select * from user where user_name=? and password=?";
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
-			
 			if(rs.next()) {
 				dto.setName(rs.getString("user_name"));
 				dto.setPassword(rs.getString("password"));
 			}
+			ps.close();
+			rs.close();
+			
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
 		finally {
-			con.close();
+			if(con != null) { 
+				con.close();
+			}
 		}
 		return dto;
 	}

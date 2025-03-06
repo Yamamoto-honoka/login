@@ -5,7 +5,7 @@ public class LoginDTO {
 	private String name;
 	private String password;
 	
-	public int detId() {
+	public int getId() {
 		return id;
 	}
 	
